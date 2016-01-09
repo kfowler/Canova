@@ -62,16 +62,16 @@
     </properties>
 
     <distributionManagement>
-        <snapshotRepository>
-            <id>sonatype-nexus-snapshots</id>
-            <name>Sonatype Nexus snapshot repository</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>nexus-releases</id>
-            <name>Nexus Release Repository</name>
-            <url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
+        <snapshotRepository>                                                                        
+            <id>c10r-maven-repository-snapshots</id>                                                
+            <name>C10R maven snapshot repository</name>                                             
+            <url>s3://c10r-maven-repository/snapshot</url>                                          
+        </snapshotRepository>                                                                       
+        <repository>                                                                                
+            <id>c10r-maven-repository</id>                                                          
+            <name>C10R maven release repository</name>                                              
+            <url>s3://c10r-maven-repository/release</url>                                           
+        </repository>   
     </distributionManagement>
 
 
@@ -176,6 +176,13 @@
 
 
     <build>
+        <extensions>
+            <extension>
+                <groupId>org.kuali.maven.wagons</groupId>
+                <artifactId>maven-s3-wagon</artifactId>
+                <version>1.2.1</version>
+            </extension>
+        </extensions>
 
         <pluginManagement>
             <plugins>
@@ -276,5 +283,30 @@
         </plugins>
 
     </build>
+
+    <repositories>                                                                                  
+        <repository>                                                                                
+            <releases>                                                                              
+                <enabled>false</enabled>                                                            
+            </releases>                                                                             
+            <snapshots>                                                                             
+                <enabled>true</enabled>                                                             
+            </snapshots>                                                                            
+            <id>sonatype-nexus-snapshots</id>                                                       
+            <name>Sonatype Nexus snapshot repository</name>                                         
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>                      
+        </repository>                                                                               
+        <repository>                                                                                
+            <releases>                                                                              
+                <enabled>true</enabled>                                                             
+            </releases>                                                                             
+            <snapshots>                                                                             
+                <enabled>false</enabled>                                                            
+            </snapshots>                                                                            
+            <id>nexus-releases</id>                                                                 
+            <name>Nexus Release Repository</name>                                                   
+            <url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>                 
+        </repository>                                                                               
+    </repositories> 
 
 </project>
